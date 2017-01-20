@@ -6,6 +6,9 @@ output: html_document
 
 <br>
 
+#.R files - code
+#.Rmd - text / document
+
 The purpose of this session is to become familiar with:
 
 1. Basic functionality of R;
@@ -21,6 +24,7 @@ Before starting, make sure you have pulled the [session 1 files](https://github.
 #getwd()
 
 #setwd("CourseSessions/Session1")
+
 
 #list.files()
 
@@ -54,6 +58,10 @@ This will download the package - hence you need to be online. You can then "load
 Once you have the library you can click on it (in the "Packages" menu) to see the commands available (also available on the [list of R packages](https://cran.r-project.org/web/packages/available_packages_by_name.html)  page, for example in this case for the [Rfacebook documentation).](https://cran.r-project.org/web/packages/Rfacebook/Rfacebook.pdf) You can then explore - always searching the internet for sample code (e.g. for [facebook app examples](http://thinktostart.com/analyzing-facebook-with-r/) or [this](http://blog.revolutionanalytics.com/2013/11/how-to-analyze-you-facebook-friends-network-with-r.html)). 
 
 For example you can explore the `RFacebook` library (e.g. start from the `fbOAUth` command and using the [Facebook app id page](https://developers.facebook.com/apps) and the [Facebook app secret](https://developers.facebook.com/apps) pages, then create a token and use it to run commands like these:
+
+library("Rfacebook")
+help("Rfacebook")
+fbOAuth()
 
 ```{r eval = FALSE, echo=TRUE, comment=NA, warning=FALSE, message=FALSE,results='asis'}
 my_friends <- getFriends(token=token, simplify=TRUE)
@@ -117,11 +125,16 @@ mean(ProjectData[,2])
 sd(ProjectData[,2])
 range(ProjectData[,2])
 min(ProjectData[,2])
+min(ProjectData[1:10,2])
 max(ProjectData[,2])
 quantile(ProjectData[,2],0.1)
 quantile(ProjectData[,2],0.5)
 quantile(ProjectData[,2],0.9)
 summary(ProjectData[,2])
+
+ProjectData[ProjectData[,2] > 3]
+ProjectData[,2]
+c(c(1:5,7,8,13:15) > 10 )
 ```
 
 and the histogram 
@@ -143,12 +156,22 @@ The correlation matrix does not look pretty for now, but we will see example way
 #### Questions
 
 1. Can you find which column asks about the name of the brand rated? 
+
+tmp2 = colnames(ProjectData) %in% c("brand","rated")
 2. Can you find the average rating responded gave to question "`r gsub("_", " ", gsub("\\.", " ", "Q1_3_The.brand.of.boat.I.buy.says.a.lot.about.who.I.am"))`" (note the use of the R command `gsub` in the code to manipulate character strings).
+
+
 3. *(Extra points)* What is the percentage of male in this population? How many of them responded that they plan to purchase a boat in the future? 
+ colnames(ProjectData)[48]
+ 100*sum(ProjectData[,48]=="M")/nowrow(ProjectData)
+ 
 4. *(Extra points)* Explore the R command `table` and use it to present in this report some of the data.
+
 5. Explore the R packages or github repositories you found interesting and prepare to discuss one of them in class, and if possible show some demo. 
 
 **Your Answers here:**
+
+2. The answer is `r mean(ProjectData[,"Q1_3_The.brand.of.boat.I.buy.says.a.lot.about.who.I.am"])`
 <br>
 <br>
 <br>
